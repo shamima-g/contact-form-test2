@@ -16,6 +16,7 @@ export is removed or renamed.
 | `Can`, `roleCan`, `routeAccess` | `web/src/components/rbac/Can.tsx`, `web/src/lib/rbac/permissions.ts` | RBAC model. `<Can action="triage"\|"delete">` renders children only when the active role is permitted (else nothing in the DOM). `permissions.ts` is the single source of action→roles (`triage`: Support Agent+Admin; `delete`: Admin) and `routeAccess(role,pathname)` (only `/inbox` restricted). Add new actions/routes here so gating and guarding stay in sync. |
 | `PermissionDeniedBanner` | `web/src/components/rbac/PermissionDeniedBanner.tsx` | Plain-language "you need X access" banner (Shadcn `alert`, `role="alert"`) shown in place of restricted content; names the required roles via `formatRequiredRoles`. |
 | `useSession().hydrated` | `web/src/contexts/SessionContext.tsx` | Session is persisted to `sessionStorage` (tab-scoped) so it survives a full-page navigation; `hydrated` flips true once rehydrated. Guards/landing wait on it. `signOut` clears storage. |
+| `AppHeader` | `web/src/components/layout/AppHeader.tsx` | Authenticated shell header rendered by the `(protected)` layout on every protected screen. Shows the signed-in user (name + active role) and a Sign Out control that calls `useSession().signOut()`; navigation to `/sign-in` is left to the layout guard (no router dependency). Renders nothing when signed out. The shared home for shell-level controls (e.g. the role switcher). |
 
 ## Conventions
 

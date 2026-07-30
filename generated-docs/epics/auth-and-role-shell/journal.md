@@ -14,3 +14,7 @@
 - Sessions now survive a full page reload via tab-scoped `sessionStorage`, so a signed-in person who types a URL straight into the address bar keeps their session (e.g. a Visitor opening the inbox address sees the "no access" banner instead of being kicked to sign-in). Sign-out clears it; it deliberately does not survive closing the browser.
 - The app root `/` was moved into the `(protected)` group (old `src/app/page.tsx` deleted) so an unauthenticated root hit is guarded to `/sign-in` and a signed-in root hit forwards to the role landing.
 - Session hydration uses `useSyncExternalStore` (not a setState-in-effect) — SSR-safe, no hydration mismatch, no flash of protected content, no lint suppression.
+
+## Story 3 — Sign out
+
+- The Sign Out button doesn't navigate on its own — it ends the session, and the app's existing route guard then notices there's no session and sends you to the sign-in screen. Doing it this way (rather than the button pushing to sign-in) is what guarantees the browser Back button can't slip you back into a page you were just on after signing out.

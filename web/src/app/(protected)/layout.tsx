@@ -21,6 +21,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useSession } from '@/contexts/SessionContext';
 import { routeAccess } from '@/lib/rbac/permissions';
 import { PermissionDeniedBanner } from '@/components/rbac/PermissionDeniedBanner';
+import { AppHeader } from '@/components/layout/AppHeader';
 
 export default function ProtectedLayout({
   children,
@@ -54,10 +55,16 @@ export default function ProtectedLayout({
   if (!access.allowed) {
     return (
       <div className="min-h-screen">
+        <AppHeader />
         <PermissionDeniedBanner requiredRoles={access.requiredRoles} />
       </div>
     );
   }
 
-  return <div className="min-h-screen">{children}</div>;
+  return (
+    <div className="min-h-screen">
+      <AppHeader />
+      {children}
+    </div>
+  );
 }
