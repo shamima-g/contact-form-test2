@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "epic": {
+    "slug": "auth-and-role-shell",
+    "name": "Sign-in and role-based app shell",
+    "createdAt": "2026-07-30T06:58:32.710Z",
+    "dependsOn": [],
+    "introducesSharedSurface": false,
+    "unverifiedAssumptions": [],
+    "manualTestResults": []
+  },
+  "phase": "PLAN",
+  "stories": {},
+  "halt": null,
+  "lastUpdated": "2026-07-30T06:58:32.710Z"
+}
