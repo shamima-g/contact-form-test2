@@ -45,6 +45,22 @@ export const simplePasswordSchema = z
   .min(8, 'Password must be at least 8 characters');
 
 /**
+ * Sign-in form schema
+ *
+ * Validates the shape of the sign-in form before the simulated auth check runs:
+ * a well-formed email and a non-empty password. Whether the credentials actually
+ * match a seeded demo account is decided by the SessionProvider, not here — so the
+ * password rule is deliberately just "present" (the seeded fixture password does
+ * not follow the strict production password policy above).
+ */
+export const signInSchema = z.object({
+  email: z.string().min(1, 'Email is required').email('Enter a valid email'),
+  password: z.string().min(1, 'Password is required'),
+});
+
+export type SignInInput = z.infer<typeof signInSchema>;
+
+/**
  * User ID validation schema
  * Validates MongoDB ObjectId or UUID format
  */
