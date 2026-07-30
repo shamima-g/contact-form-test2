@@ -18,11 +18,22 @@
  */
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 // Real production modules — imports fail until implemented (TDD red).
 import { SessionProvider, useSession } from '@/contexts/SessionContext';
 import { AppHeader } from '@/components/layout/AppHeader';
 import { SEEDED_USERS } from '@/lib/fixtures/users';
+
+// The shell header hosts the QA/demo role switcher, which triggers a client-side
+// route change when the active role changes; mock the navigation hooks so AppHeader
+// renders in jsdom without a router-mounted error. Sign-out itself has no router
+// dependency (the layout guard owns that redirect) — this keeps the behaviour under
+// test untouched.
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({ push: vi.fn(), replace: vi.fn(), refresh: vi.fn() }),
+  usePathname: () => '/inbox',
+  useSearchParams: () => new URLSearchParams(),
+}));
 
 // Any seeded account can be signed in and then out; sign-out wiring is
 // role-agnostic, so use the first seeded user rather than pinning a role.

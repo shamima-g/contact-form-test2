@@ -18,3 +18,8 @@
 ## Story 3 — Sign out
 
 - The Sign Out button doesn't navigate on its own — it ends the session, and the app's existing route guard then notices there's no session and sends you to the sign-in screen. Doing it this way (rather than the button pushing to sign-in) is what guarantees the browser Back button can't slip you back into a page you were just on after signing out.
+
+## Story 4 — Role switcher (QA/demo)
+
+- Added the QA/demo role switcher to the app header: three role buttons (Visitor / Support Agent / Admin) marked clearly as a demo tool. Clicking one instantly switches the active role and drops you on that role's landing screen, with visible actions updating right away and no re-sign-in.
+- Wiring the switcher into the shared header introduced a router dependency into the header's render subtree, so Story 3's sign-out test gained the same standard `next/navigation` mock Story 4's test uses (behavioural assertions unchanged).

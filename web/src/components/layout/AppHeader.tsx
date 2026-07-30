@@ -19,6 +19,7 @@
 
 import { useSession } from '@/contexts/SessionContext';
 import { Button } from '@/components/ui/button';
+import { RoleSwitcher } from '@/components/qa/RoleSwitcher';
 
 export function AppHeader() {
   const { user, activeRole, signOut } = useSession();
@@ -29,7 +30,7 @@ export function AppHeader() {
 
   return (
     <header className="border-b border-border bg-background">
-      <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3">
+      <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-4 py-3">
         <div className="flex flex-col">
           <span className="text-sm font-semibold leading-tight text-foreground">
             {user.name}
@@ -39,9 +40,12 @@ export function AppHeader() {
           </span>
         </div>
 
-        <Button type="button" variant="outline" size="sm" onClick={signOut}>
-          Sign Out
-        </Button>
+        <div className="flex flex-wrap items-center gap-4">
+          <RoleSwitcher />
+          <Button type="button" variant="outline" size="sm" onClick={signOut}>
+            Sign Out
+          </Button>
+        </div>
       </div>
     </header>
   );
