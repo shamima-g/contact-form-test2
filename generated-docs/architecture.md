@@ -10,6 +10,7 @@ export is removed or renamed.
 |---|---|---|
 | `SessionProvider` / `useSession` | `web/src/contexts/SessionContext.tsx` | Single source of session + active-role truth (simulated client-side auth). `signIn(email,password) → {ok,error?}`, `signOut()`, `setActiveRole(role)`, `user`, `activeRole`. No persistence, no backend. |
 | `SEEDED_USERS`, `User`, `Role`, `landingRouteForRole` | `web/src/lib/fixtures/users.ts` | The three seeded demo accounts and the `Role` union (`'Visitor' \| 'Support Agent' \| 'Admin'`); `landingRouteForRole` maps a role to its landing path (Visitor → `/contact`, others → `/inbox`). |
+| `SEEDED_ENQUIRIES`, `Enquiry`, `Category`, `EnquiryStatus` | `web/src/lib/fixtures/enquiries.ts` | Shared project-wide enquiry entity (mock, no backend). `Category` = `'Feedback' \| 'Question' \| 'General Enquiry'`, `EnquiryStatus` = `'New' \| 'In Progress' \| 'Resolved'`; each row's `submittedBy` is a `SEEDED_USERS[].id` for own-submissions scoping. Contact-form and inbox epics read/write this. |
 | `signInSchema` / `SignInInput` | `web/src/lib/validation/schemas.ts` | Zod shape-check for the sign-in form (well-formed email + non-empty password). Credential match is decided by `SessionProvider`, not the schema. |
 | `(protected)` route group | `web/src/app/(protected)/` | Authenticated landing pages (`/contact`, `/inbox`) live here. Its `layout.tsx` is currently a passthrough; route-guarding + permission-denied banner land in the access-control story. |
 
